@@ -14,8 +14,8 @@ import java.util.Map;
 public class Generator {
 
 	// 根据命名规范，只修改此常量值即可
-	private static String MODULE = "auctionSystem";
-	private static String DATABASE = "auctionSystem";
+	private static String MODULE = "auctionsystem";
+	private static String DATABASE = "auctionsystem";
 	private static String TABLE_PREFIX = "as_";
 	private static String PACKAGE_NAME = "cn.rx";
 	private static String JDBC_DRIVER = PropertiesFileUtil.getInstance("mybatis/generator/generator").get("generator.jdbc.driver");

@@ -7,3 +7,6 @@ spring:
     password: 1204
     driver-class-name:driver-class-name: com.mysql.cj.jdbc.Driver
 
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:cn/rx/dao/mapper/*.xml

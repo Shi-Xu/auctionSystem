@@ -1,4 +1,4 @@
-package com.xt.feedback.common.util;
+package cn.rx.common.utils;
 
 import cn.rx.common.utils.*;
 import org.apache.commons.lang.ObjectUtils;
@@ -141,8 +141,8 @@ public class MybatisGeneratorUtil {
 
 		System.out.println("========== 开始生成Service ==========");
 		String ctime = new SimpleDateFormat("yyyy/M/d").format(new Date());
-		String servicePath = basePath + module + "/src/main/java/" + packageName.replaceAll("\\.", "/") + "/service";
-		String serviceImplPath = basePath + module + "/src/main/java/" + packageName.replaceAll("\\.", "/") + "/service/impl";
+		String servicePath = basePath  + "/src/main/java/" + packageName.replaceAll("\\.", "/") + "/service";
+		String serviceImplPath = basePath  + "/src/main/java/" + packageName.replaceAll("\\.", "/") + "/service/impl";
 		for (int i = 0; i < tables.size(); i++) {
 			String model = StringUtil.lineToHump(ObjectUtils.toString(tables.get(i).getTable_name()));
 			String DOName = model+"DO";

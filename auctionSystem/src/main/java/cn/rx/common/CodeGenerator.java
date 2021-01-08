@@ -12,7 +12,7 @@ import java.util.Map;
 
 
 public class CodeGenerator {
-	private static String MODULE = "auctionSystem";
+	private static String MODULE = "auctionsystem";
 	private static String PACKAGE_NAME = "cn.rx";
 
 	// java源码路径
