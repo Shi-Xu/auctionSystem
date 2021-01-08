@@ -12,8 +12,8 @@ import java.util.Map;
 
 
 public class CodeGenerator {
-	private static String MODULE = "xt-feedback";
-	private static String PACKAGE_NAME = "com.xt.feedback";
+	private static String MODULE = "auctionSystem";
+	private static String PACKAGE_NAME = "cn.rx";
 
 	// java源码路径
 	private static String src_url = "/src/main/java/";
@@ -21,12 +21,12 @@ public class CodeGenerator {
 	private static String mapper2_url = "/dao/mapper2";
 
 	// 参考的模板模块
-	private static String template_name = "fb_teacher";
+	private static String template_name = "as_user";
 	private static String template_hump;
 	private static String template_lower;
 	private static String template_alias;
 	private static String template_url;
-	private static String template_string1 = "教师";
+	private static String template_string1 = "用戶";
 
 	// 想要生成的模块
 	private static List<String> modelList = new ArrayList<>();
@@ -44,23 +44,13 @@ public class CodeGenerator {
 
 	static {
 		// 计划生成的模块
-		modelList_string1s.add("多选题");
-		modelList_string1s.add("问卷各部分");
-		modelList_string1s.add("问卷");
-		modelList_string1s.add("问卷结果");
-		modelList_string1s.add("单选题");
-		modelList_string1s.add("课程问卷关联表");
-		modelList_string1s.add("教师");
-		modelList_string1s.add("教师用户");
+		modelList_string1s.add("用戶表");
+		modelList_string1s.add("商品表");
 
-		modelList.add("fb_multiple");
-		modelList.add("fb_part");
-		modelList.add("fb_questionnaire");
-		modelList.add("fb_result");
-		modelList.add("fb_single");
-		modelList.add("fb_teaching_qu");
-		modelList.add("fb_teacher");
-		modelList.add("fb_tch_user");
+
+		modelList.add("as_user");
+		modelList.add("as_goods");
+
 		init();
 	}
 

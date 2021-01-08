@@ -56,36 +56,14 @@
                         password="1204" />
 
         <!-- model生成 -->
-        <javaModelGenerator targetPackage="com.xt.feedback.dao.model" targetProject="F:/WS/Idea/ComputerCompetition/xt-feedback/src/main/java" />
+        <javaModelGenerator targetPackage="cn.rx.dao.model" targetProject="C:/Users/ranxu/Desktop//auctionSystem/src/main/java" />
 
         <!-- MapperXML生成 -->
-        <sqlMapGenerator targetPackage="com.xt.feedback.dao.mapper" targetProject="F:/WS/Idea/ComputerCompetition/xt-feedback/src/main/java" />
+        <sqlMapGenerator targetPackage="cn.rx.dao.mapper" targetProject="C:/Users/ranxu/Desktop//auctionSystem/src/main/java" />
 
         <!-- Mapper接口生成 -->
-        <javaClientGenerator targetPackage="com.xt.feedback.dao.mapper" targetProject="F:/WS/Idea/ComputerCompetition/xt-feedback/src/main/java" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="cn.rx.dao.mapper" targetProject="C:/Users/ranxu/Desktop//auctionSystem/src/main/java" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
-                        <table tableName="fb_multiple" domainObjectName="FbMultipleDO" alias="mp">
-                    <generatedKey column="multiple_id" sqlStatement="MySql" identity="true"/>                </table>
-                        <table tableName="fb_part" domainObjectName="FbPartDO" alias="pr">
-                    <generatedKey column="part_id" sqlStatement="MySql" identity="true"/>                </table>
-                        <table tableName="fb_qtype" domainObjectName="FbQtypeDO" >
-                                    </table>
-                        <table tableName="fb_questionnaire" domainObjectName="FbQuestionnaireDO" alias="qu">
-                    <generatedKey column="questionnaire_id" sqlStatement="MySql" identity="true"/>                </table>
-                        <table tableName="fb_result" domainObjectName="FbResultDO" alias="rs">
-                    <generatedKey column="result_id" sqlStatement="MySql" identity="true"/>                </table>
-                        <table tableName="fb_single" domainObjectName="FbSingleDO" alias="sg">
-                    <generatedKey column="single_id" sqlStatement="MySql" identity="true"/>                </table>
-                        <table tableName="fb_tch_custom" domainObjectName="FbTchCustomDO" >
-                                    </table>
-                        <table tableName="fb_tch_user" domainObjectName="FbTchUserDO" >
-                                    </table>
-                        <table tableName="fb_teacher" domainObjectName="FbTeacherDO" alias="tch">
-                    <generatedKey column="teacher_id" sqlStatement="MySql" identity="true"/>                </table>
-                        <table tableName="fb_teaching" domainObjectName="FbTeachingDO" alias="tc">
-                    <generatedKey column="teaching_id" sqlStatement="MySql" identity="true"/>                </table>
-                        <table tableName="fb_teaching_qu" domainObjectName="FbTeachingQuDO" alias="tq">
-                    <generatedKey column="teaching_qu_id" sqlStatement="MySql" identity="true"/>                </table>
             </context>
 </generatorConfiguration>

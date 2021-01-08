@@ -1,5 +1,6 @@
-package cn.rx.common.utils;
+package com.xt.feedback.common.util;
 
+import cn.rx.common.utils.*;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.velocity.VelocityContext;
 import org.mybatis.generator.api.MyBatisGenerator;
@@ -7,12 +8,11 @@ import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
+import static cn.rx.common.utils.StringUtil.lineToHump;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static cn.rx.common.utils.StringUtil.lineToHump;
-
 
 /**
  * 代码生成类
@@ -50,36 +50,36 @@ public class MybatisGeneratorUtil {
 			String tablePrefix,
 			String packageName,
 			Map<String, String> lastInsertIdTables,
-			Map<String, String> tableAlias) throws Exception {
-		
+			Map<String, String> tableAlias) throws Exception{
+
 		Object[] values = null;
 		values=tableAlias.values().toArray();
 		HashSet<String> set = new HashSet<String>(tableAlias.values());
 		for (int i=0;i<values.length;i++) {
-            String value = values[i].toString();
-            if (!set.contains(value)) {
-            	throw new Error("表别名设置重复:"+value);
-            }
-        }
+			String value = values[i].toString();
+			if (!set.contains(value)) {
+				throw new Error("表别名设置重复:"+value);
+			}
+		}
 		System.out.println("========== 表别名未重复，开始进行生成 ==========");
-		
+
 		String os = System.getProperty("os.name");
 		String targetProject = module ;
-		String basePath = cn.rx.common.utils.MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "").replace(targetProject, "");
+		String basePath = MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "").replace(targetProject, "");
 		if (os.toLowerCase().startsWith("win")) {
-			generatorConfig_vm = cn.rx.common.utils.MybatisGeneratorUtil.class.getResource(generatorConfig_vm).getPath().replaceFirst("/", "");
-			service_vm = cn.rx.common.utils.MybatisGeneratorUtil.class.getResource(service_vm).getPath().replaceFirst("/", "");
-			serviceMock_vm = cn.rx.common.utils.MybatisGeneratorUtil.class.getResource(serviceMock_vm).getPath().replaceFirst("/", "");
-			serviceImpl_vm = cn.rx.common.utils.MybatisGeneratorUtil.class.getResource(serviceImpl_vm).getPath().replaceFirst("/", "");
+			generatorConfig_vm = MybatisGeneratorUtil.class.getResource(generatorConfig_vm).getPath().replaceFirst("/", "");
+			service_vm = MybatisGeneratorUtil.class.getResource(service_vm).getPath().replaceFirst("/", "");
+			serviceMock_vm = MybatisGeneratorUtil.class.getResource(serviceMock_vm).getPath().replaceFirst("/", "");
+			serviceImpl_vm = MybatisGeneratorUtil.class.getResource(serviceImpl_vm).getPath().replaceFirst("/", "");
 			basePath = basePath.replaceFirst("/", "");
 		} else {
-			generatorConfig_vm = cn.rx.common.utils.MybatisGeneratorUtil.class.getResource(generatorConfig_vm).getPath();
-			service_vm = cn.rx.common.utils.MybatisGeneratorUtil.class.getResource(service_vm).getPath();
-			serviceMock_vm = cn.rx.common.utils.MybatisGeneratorUtil.class.getResource(serviceMock_vm).getPath();
-			serviceImpl_vm = cn.rx.common.utils.MybatisGeneratorUtil.class.getResource(serviceImpl_vm).getPath();
+			generatorConfig_vm = MybatisGeneratorUtil.class.getResource(generatorConfig_vm).getPath();
+			service_vm = MybatisGeneratorUtil.class.getResource(service_vm).getPath();
+			serviceMock_vm = MybatisGeneratorUtil.class.getResource(serviceMock_vm).getPath();
+			serviceImpl_vm = MybatisGeneratorUtil.class.getResource(serviceImpl_vm).getPath();
 		}
-		System.out.println(cn.rx.common.utils.MybatisGeneratorUtil.class.getResource("/").getPath());
-		String generatorConfigXml = cn.rx.common.utils.MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "") + "/src/main/resources/mybatis/generator/generatorConfig.xml";
+		System.out.println(MybatisGeneratorUtil.class.getResource("/").getPath());
+		String generatorConfigXml = MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "") + "/src/main/resources/mybatis/generator/generatorConfig.xml";
 		targetProject = basePath + targetProject;
 		String sql = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = '" + database + "' AND table_name LIKE '" + tablePrefix + "_%';";
 
@@ -144,7 +144,7 @@ public class MybatisGeneratorUtil {
 		String servicePath = basePath + module + "/src/main/java/" + packageName.replaceAll("\\.", "/") + "/service";
 		String serviceImplPath = basePath + module + "/src/main/java/" + packageName.replaceAll("\\.", "/") + "/service/impl";
 		for (int i = 0; i < tables.size(); i++) {
-			String model = lineToHump(ObjectUtils.toString(tables.get(i).getTable_name()));
+			String model = StringUtil.lineToHump(ObjectUtils.toString(tables.get(i).getTable_name()));
 			String DOName = model+"DO";
 			String service = servicePath + "/" + model + "Service.java";
 			String serviceMock = servicePath + "/" + model + "ServiceMock.java";
