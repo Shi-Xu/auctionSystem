@@ -4,8 +4,10 @@ import cn.rx.dao.model.AsGoodsDO;
 import cn.rx.dao.model.AsGoodsDOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public interface AsGoodsDOMapper {
+
     long countByExample(AsGoodsDOExample example);
 
     int deleteByExample(AsGoodsDOExample example);

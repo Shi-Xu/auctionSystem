@@ -2,15 +2,22 @@ package cn.rx.service.impl;
 
 import cn.rx.common.annotation.BaseService;
 import cn.rx.common.base.BaseServiceImpl;
+import cn.rx.common.baseControll.Result;
+import cn.rx.common.baseControll.ResultConstant;
 import cn.rx.dao.mapper.AsUserDOMapper;
 import cn.rx.dao.model.AsUserDO;
 import cn.rx.dao.model.AsUserDOExample;
 import cn.rx.service.AsUserService;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * AsUserService实现
@@ -23,7 +30,26 @@ public class AsUserServiceImpl extends BaseServiceImpl<AsUserDOMapper, AsUserDO,
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AsUserServiceImpl.class);
 
-    @Autowired
+    @Resource
     AsUserDOMapper asUserDOMapper;
+
+    @Override
+    public Result pwdLogin(String username, String password){
+        Result result = null;
+        AsUserDOExample example = new AsUserDOExample();
+        AsUserDOExample.Criteria criteria = example.createCriteria().andUserNameEqualTo(username);
+        int i = deleteByPrimaryKey(1);
+        System.out.println(i);
+        AsUserDO asUserDO =  selectFirstByExample(example);
+
+        if (asUserDO.getUserName()==null){
+            new Result(ResultConstant.FAILED,null,"高用户不存在，请重试");
+        }
+        if (!asUserDO.getPwd().equals(password)){
+            new Result(ResultConstant.FAILED,null,"用户名或密码错误，请重试");
+        }
+        result = new Result(ResultConstant.SUCCESS,null,"登录成功");
+        return result;
+    }
 
 }

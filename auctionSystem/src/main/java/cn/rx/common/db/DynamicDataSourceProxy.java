@@ -9,11 +9,14 @@ import org.springframework.core.annotation.Order;
 import java.lang.reflect.Method;
 
 
+/**
+ * @author ranxu
+ */
 @Aspect
 @Order(1)
 public class DynamicDataSourceProxy {
 
-	@Before(value = "@annotation(com.xintong.common.db.DataSource)")
+	@Before(value = "@annotation(cn.rx.common.db.DataSource)")
 	public void before(JoinPoint jp) throws NoSuchMethodException, SecurityException {
 		MethodSignature signature = (MethodSignature) jp.getSignature();
 		Method method = signature.getMethod();

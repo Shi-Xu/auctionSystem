@@ -4,7 +4,9 @@ import cn.rx.dao.model.AsUserDO;
 import cn.rx.dao.model.AsUserDOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AsUserDOMapper {
     long countByExample(AsUserDOExample example);
 
