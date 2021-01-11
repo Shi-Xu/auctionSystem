@@ -114,7 +114,7 @@ public class CodeGenerator {
 			String basePath =  cn.rx.common.CodeGenerator.class.getResource("/").getPath().replace("/target/classes/", "")
 					.replace(MODULE, "");
 			basePath = basePath.replaceFirst("/", "");
-			targetProject = basePath + targetProject;
+			targetProject = basePath ;
 			File targetDir = new File(targetProject + src_url + PACKAGE_NAME.replaceAll("\\.", "/") + mapper2_url);
 			// 文件拷贝及内容替换
 			List<File> templateFiles = MyFileUtil.searchFiles(targetDir, template_hump);

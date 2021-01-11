@@ -80,7 +80,7 @@ public class MybatisGeneratorUtil {
 		}
 		System.out.println(MybatisGeneratorUtil.class.getResource("/").getPath());
 		String generatorConfigXml = MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "") + "/src/main/resources/mybatis/generator/generatorConfig.xml";
-		targetProject = basePath + targetProject;
+		targetProject = basePath ;
 		String sql = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = '" + database + "' AND table_name LIKE '" + tablePrefix + "_%';";
 
 		System.out.println("========== 开始生成generatorConfig.xml文件 ==========");
