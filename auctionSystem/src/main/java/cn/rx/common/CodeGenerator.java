@@ -12,7 +12,7 @@ import java.util.Map;
 
 
 public class CodeGenerator {
-	private static String MODULE = "auctionsystem";
+	private static String MODULE = "test";
 	private static String PACKAGE_NAME = "cn.rx";
 
 	// java源码路径
@@ -21,7 +21,7 @@ public class CodeGenerator {
 	private static String mapper2_url = "/dao/mapper2";
 
 	// 参考的模板模块
-	private static String template_name = "as_user";
+	private static String template_name = "as_users";
 	private static String template_hump;
 	private static String template_lower;
 	private static String template_alias;

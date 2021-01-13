@@ -1,8 +1,5 @@
 package cn.rx.dao.model;
 
-import cn.rx.dao.mapper.AsUserDOMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.Serializable;
 import java.util.Date;
 

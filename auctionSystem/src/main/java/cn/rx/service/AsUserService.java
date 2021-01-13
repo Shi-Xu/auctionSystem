@@ -3,8 +3,10 @@ package cn.rx.service;
 import cn.rx.common.base.BaseService;
 import cn.rx.common.baseControll.Result;
 import cn.rx.common.utils.StringUtil;
+import cn.rx.dao.mapper.AsUserDOMapper;
 import cn.rx.dao.model.AsUserDO;
 import cn.rx.dao.model.AsUserDOExample;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
 * AsUserService接口
@@ -14,6 +16,6 @@ import cn.rx.dao.model.AsUserDOExample;
  */
 public interface AsUserService extends BaseService<AsUserDO, AsUserDOExample> {
 
-     Result pwdLogin(String username, String password);
+     public Result pwdLogin(String username, String password);
 
 }

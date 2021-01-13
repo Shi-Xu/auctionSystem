@@ -10,6 +10,5 @@ spring:
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:cn/rx/dao/mapper/*.xml
-logging:
-    level:
-      cn.rx.dao.mapper: debug
+pagehelper:
+  helperDialect=PostgreSQL:

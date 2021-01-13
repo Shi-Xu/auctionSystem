@@ -10,7 +10,7 @@ import org.springframework.cache.annotation.EnableCaching;
  */
 @SpringBootApplication
 @EnableCaching
-@MapperScan("cn.rx.dao.*")
+@MapperScan(basePackages = "cn.rx.dao.*")
 public class AuctionSystemApplication {
 
 	public static void main(String[] args) {
