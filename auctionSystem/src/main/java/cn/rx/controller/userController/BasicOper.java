@@ -37,7 +37,6 @@ public class BasicOper {
         }
         Result result = asUsersService.pwdLogin(username,password);
         if (result.getCode()==ResultConstant.SUCCESS.getCode()){
-
             return "success";
         }
 
