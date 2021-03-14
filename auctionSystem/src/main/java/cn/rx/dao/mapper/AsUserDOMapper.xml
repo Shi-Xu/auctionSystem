@@ -7,11 +7,13 @@
     <result column="user_user_name" jdbcType="VARCHAR" property="userName" />
     <result column="user_accounts" jdbcType="VARCHAR" property="accounts" />
     <result column="user_gender" jdbcType="CHAR" property="gender" />
-    <result column="user_birthday" jdbcType="DATE" property="birthday" />
+    <result column="user_birthday" jdbcType="VARCHAR" property="birthday" />
     <result column="user_phone_num" jdbcType="VARCHAR" property="phoneNum" />
     <result column="user_pwd" jdbcType="CHAR" property="pwd" />
     <result column="user_address" jdbcType="VARCHAR" property="address" />
     <result column="user_char_sign" jdbcType="VARCHAR" property="charSign" />
+    <result column="user_email" jdbcType="VARCHAR" property="email" />
+    <result column="user_role" jdbcType="INTEGER" property="role" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -81,7 +83,7 @@
       user.user_id as user_user_id, user.pic as user_pic, user.user_name as user_user_name, 
       user.accounts as user_accounts, user.gender as user_gender, user.birthday as user_birthday, 
       user.phone_num as user_phone_num, user.pwd as user_pwd, user.address as user_address, 
-      user.char_sign as user_char_sign
+      user.char_sign as user_char_sign, user.email as user_email, user.role as user_role
     </if>
   </sql>
   <select id="selectByExample" parameterType="cn.rx.dao.model.AsUserDOExample" resultMap="BaseResultMap">
@@ -128,12 +130,12 @@
     </selectKey>
     insert into as_user (pic, user_name, accounts, 
       gender, birthday, phone_num, 
-      pwd, address, char_sign
-      )
+      pwd, address, char_sign, 
+      email, role)
     values (#{pic,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{accounts,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, #{phoneNum,jdbcType=VARCHAR}, 
-      #{pwd,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, #{charSign,jdbcType=VARCHAR}
-      )
+      #{gender,jdbcType=CHAR}, #{birthday,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, 
+      #{pwd,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, #{charSign,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.rx.dao.model.AsUserDO">
     <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
@@ -168,6 +170,12 @@
       <if test="charSign != null">
         char_sign,
       </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="pic != null">
@@ -183,7 +191,7 @@
         #{gender,jdbcType=CHAR},
       </if>
       <if test="birthday != null">
-        #{birthday,jdbcType=DATE},
+        #{birthday,jdbcType=VARCHAR},
       </if>
       <if test="phoneNum != null">
         #{phoneNum,jdbcType=VARCHAR},
@@ -196,6 +204,12 @@
       </if>
       <if test="charSign != null">
         #{charSign,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -224,7 +238,7 @@
         user.gender = #{record.gender,jdbcType=CHAR},
       </if>
       <if test="record.birthday != null">
-        user.birthday = #{record.birthday,jdbcType=DATE},
+        user.birthday = #{record.birthday,jdbcType=VARCHAR},
       </if>
       <if test="record.phoneNum != null">
         user.phone_num = #{record.phoneNum,jdbcType=VARCHAR},
@@ -238,6 +252,12 @@
       <if test="record.charSign != null">
         user.char_sign = #{record.charSign,jdbcType=VARCHAR},
       </if>
+      <if test="record.email != null">
+        user.email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null">
+        user.role = #{record.role,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -250,11 +270,13 @@
       user.user_name = #{record.userName,jdbcType=VARCHAR},
       user.accounts = #{record.accounts,jdbcType=VARCHAR},
       user.gender = #{record.gender,jdbcType=CHAR},
-      user.birthday = #{record.birthday,jdbcType=DATE},
+      user.birthday = #{record.birthday,jdbcType=VARCHAR},
       user.phone_num = #{record.phoneNum,jdbcType=VARCHAR},
       user.pwd = #{record.pwd,jdbcType=CHAR},
       user.address = #{record.address,jdbcType=VARCHAR},
-      user.char_sign = #{record.charSign,jdbcType=VARCHAR}
+      user.char_sign = #{record.charSign,jdbcType=VARCHAR},
+      user.email = #{record.email,jdbcType=VARCHAR},
+      user.role = #{record.role,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -275,7 +297,7 @@
         gender = #{gender,jdbcType=CHAR},
       </if>
       <if test="birthday != null">
-        birthday = #{birthday,jdbcType=DATE},
+        birthday = #{birthday,jdbcType=VARCHAR},
       </if>
       <if test="phoneNum != null">
         phone_num = #{phoneNum,jdbcType=VARCHAR},
@@ -289,6 +311,12 @@
       <if test="charSign != null">
         char_sign = #{charSign,jdbcType=VARCHAR},
       </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=INTEGER},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -298,18 +326,20 @@
       user_name = #{userName,jdbcType=VARCHAR},
       accounts = #{accounts,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=CHAR},
-      birthday = #{birthday,jdbcType=DATE},
+      birthday = #{birthday,jdbcType=VARCHAR},
       phone_num = #{phoneNum,jdbcType=VARCHAR},
       pwd = #{pwd,jdbcType=CHAR},
       address = #{address,jdbcType=VARCHAR},
-      char_sign = #{charSign,jdbcType=VARCHAR}
+      char_sign = #{charSign,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <sql id="All_Column_List">
     user.user_id as user_user_id, user.pic as user_pic, user.user_name as user_user_name, 
     user.accounts as user_accounts, user.gender as user_gender, user.birthday as user_birthday, 
     user.phone_num as user_phone_num, user.pwd as user_pwd, user.address as user_address, 
-    user.char_sign as user_char_sign
+    user.char_sign as user_char_sign, user.email as user_email, user.role as user_role
   </sql>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

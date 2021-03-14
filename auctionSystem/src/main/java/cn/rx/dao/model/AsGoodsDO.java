@@ -50,7 +50,7 @@ public class AsGoodsDO implements Serializable {
      *
      * @mbg.generated
      */
-    private Date goodsStartTime;
+    private String goodsStartTime;
 
     /**
      * 字段：goods_end_time
@@ -58,7 +58,7 @@ public class AsGoodsDO implements Serializable {
      *
      * @mbg.generated
      */
-    private Date goodsEndTime;
+    private String goodsEndTime;
 
     /**
      * 字段：goods_auction_times
@@ -91,6 +91,38 @@ public class AsGoodsDO implements Serializable {
      * @mbg.generated
      */
     private Integer goodsState;
+
+    /**
+     * 字段：goods_description
+     * 商品描述
+     *
+     * @mbg.generated
+     */
+    private String goodsDescription;
+
+    /**
+     * 字段：goods_release_time
+     * 商品发布时间
+     *
+     * @mbg.generated
+     */
+    private Date goodsReleaseTime;
+
+    /**
+     * 字段：goods_audit
+     * 是否审核 0未审核 1已审核
+     *
+     * @mbg.generated
+     */
+    private Integer goodsAudit;
+
+    /**
+     * 字段：user_id
+     * 用户id
+     *
+     * @mbg.generated
+     */
+    private Integer userId;
 
     private static final long serialVersionUID = 1L;
 
@@ -159,29 +191,29 @@ public class AsGoodsDO implements Serializable {
         this.goodsDetailPic = goodsDetailPic;
     }
 
-    public Date getGoodsStartTime() {
+    public String getGoodsStartTime() {
         return goodsStartTime;
     }
 
-    public AsGoodsDO withGoodsStartTime(Date goodsStartTime) {
+    public AsGoodsDO withGoodsStartTime(String goodsStartTime) {
         this.setGoodsStartTime(goodsStartTime);
         return this;
     }
 
-    public void setGoodsStartTime(Date goodsStartTime) {
+    public void setGoodsStartTime(String goodsStartTime) {
         this.goodsStartTime = goodsStartTime;
     }
 
-    public Date getGoodsEndTime() {
+    public String getGoodsEndTime() {
         return goodsEndTime;
     }
 
-    public AsGoodsDO withGoodsEndTime(Date goodsEndTime) {
+    public AsGoodsDO withGoodsEndTime(String goodsEndTime) {
         this.setGoodsEndTime(goodsEndTime);
         return this;
     }
 
-    public void setGoodsEndTime(Date goodsEndTime) {
+    public void setGoodsEndTime(String goodsEndTime) {
         this.goodsEndTime = goodsEndTime;
     }
 
@@ -237,6 +269,58 @@ public class AsGoodsDO implements Serializable {
         this.goodsState = goodsState;
     }
 
+    public String getGoodsDescription() {
+        return goodsDescription;
+    }
+
+    public AsGoodsDO withGoodsDescription(String goodsDescription) {
+        this.setGoodsDescription(goodsDescription);
+        return this;
+    }
+
+    public void setGoodsDescription(String goodsDescription) {
+        this.goodsDescription = goodsDescription;
+    }
+
+    public Date getGoodsReleaseTime() {
+        return goodsReleaseTime;
+    }
+
+    public AsGoodsDO withGoodsReleaseTime(Date goodsReleaseTime) {
+        this.setGoodsReleaseTime(goodsReleaseTime);
+        return this;
+    }
+
+    public void setGoodsReleaseTime(Date goodsReleaseTime) {
+        this.goodsReleaseTime = goodsReleaseTime;
+    }
+
+    public Integer getGoodsAudit() {
+        return goodsAudit;
+    }
+
+    public AsGoodsDO withGoodsAudit(Integer goodsAudit) {
+        this.setGoodsAudit(goodsAudit);
+        return this;
+    }
+
+    public void setGoodsAudit(Integer goodsAudit) {
+        this.goodsAudit = goodsAudit;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public AsGoodsDO withUserId(Integer userId) {
+        this.setUserId(userId);
+        return this;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -254,6 +338,10 @@ public class AsGoodsDO implements Serializable {
         sb.append(", goodsStartPrice=").append(goodsStartPrice);
         sb.append(", goodsCurrentPrice=").append(goodsCurrentPrice);
         sb.append(", goodsState=").append(goodsState);
+        sb.append(", goodsDescription=").append(goodsDescription);
+        sb.append(", goodsReleaseTime=").append(goodsReleaseTime);
+        sb.append(", goodsAudit=").append(goodsAudit);
+        sb.append(", userId=").append(userId);
         sb.append("]");
         return sb.toString();
     }
@@ -280,7 +368,11 @@ public class AsGoodsDO implements Serializable {
             && (this.getGoodsAuctionTimes() == null ? other.getGoodsAuctionTimes() == null : this.getGoodsAuctionTimes().equals(other.getGoodsAuctionTimes()))
             && (this.getGoodsStartPrice() == null ? other.getGoodsStartPrice() == null : this.getGoodsStartPrice().equals(other.getGoodsStartPrice()))
             && (this.getGoodsCurrentPrice() == null ? other.getGoodsCurrentPrice() == null : this.getGoodsCurrentPrice().equals(other.getGoodsCurrentPrice()))
-            && (this.getGoodsState() == null ? other.getGoodsState() == null : this.getGoodsState().equals(other.getGoodsState()));
+            && (this.getGoodsState() == null ? other.getGoodsState() == null : this.getGoodsState().equals(other.getGoodsState()))
+            && (this.getGoodsDescription() == null ? other.getGoodsDescription() == null : this.getGoodsDescription().equals(other.getGoodsDescription()))
+            && (this.getGoodsReleaseTime() == null ? other.getGoodsReleaseTime() == null : this.getGoodsReleaseTime().equals(other.getGoodsReleaseTime()))
+            && (this.getGoodsAudit() == null ? other.getGoodsAudit() == null : this.getGoodsAudit().equals(other.getGoodsAudit()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()));
     }
 
     @Override
@@ -298,6 +390,10 @@ public class AsGoodsDO implements Serializable {
         result = prime * result + ((getGoodsStartPrice() == null) ? 0 : getGoodsStartPrice().hashCode());
         result = prime * result + ((getGoodsCurrentPrice() == null) ? 0 : getGoodsCurrentPrice().hashCode());
         result = prime * result + ((getGoodsState() == null) ? 0 : getGoodsState().hashCode());
+        result = prime * result + ((getGoodsDescription() == null) ? 0 : getGoodsDescription().hashCode());
+        result = prime * result + ((getGoodsReleaseTime() == null) ? 0 : getGoodsReleaseTime().hashCode());
+        result = prime * result + ((getGoodsAudit() == null) ? 0 : getGoodsAudit().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         return result;
     }
 }

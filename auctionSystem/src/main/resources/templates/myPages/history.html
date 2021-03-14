@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base th:href="@{/}">
+    <script type="text/javascript" th:inline="javascript">
+        var baseUrl=[[@{/}]];
+    </script>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="adminlte/plugins/bootstrap/css/bootstrap.min.css" />
+
+    <script src="adminlte/plugins/jquery/jquery.min.js"></script>
+
+    <script src="adminlte/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        function load_user(){
+            /*var user=[[${currentUser}]];
+            if(user==null||user==""){
+                $("#cue").show();
+                $("#login").html('请登录');
+            }else{
+                $("#cue").hide();
+                $("#login").html(user);
+            }*/
+        }
+
+    </script>
+</head>
+
+<body onload="load_user()">
+<!--导航栏前端-->
+
+<!--导航栏-->
+<!--图表页-->
+<!--导航栏终端-->
+<ul class="nav justify-content-center navbar navbar-dark bg-dark">
+    <li class="nav-item">
+        <a class="nav-link" href="#">欢迎来到BSpace</a>
+    </li>
+    <li class="nav-item" th:id="cue">
+        <a class="nav-link" href="/login" th:id="login">请登录
+        </a>
+    </li>
+    <div class="input-group-text" >
+        <a href="/user/detail">
+            <span class="fas fa-user">我的</span>
+        </a>
+    </div>
+    <li class="nav-item">
+        <a class="nav-link" href="/register">免费注册</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">我的订单</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">客户服务</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">我的收藏</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">购物车</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">待付款</a>
+    </li>
+</ul>
+
+<!--导航条-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">BSpace</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/auction">首页 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/goods/distinguishByType/1">珠宝</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/goods/distinguishByType/2">艺术品</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"href="/goods/distinguishByType/3">奢侈品</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/goods/distinguishByType/4">手工/原创</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">历史</a>
+            </li>
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="/goods/searchAll">
+            <input class="form-control mr-sm-2" name="searchContent"  type="search" placeholder="搜索" aria-label="Search">
+            <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">搜索</button>
+        </form>
+    </div>
+</nav>
+
+<!--内容区域-->
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-10">
+
+        <div>
+
+            <div>
+                <div class="row" th:with="name=${0}">
+                    <div class="col-4"   th:each="result,iterstat:${history.data}">
+                        <div>
+                            <!--循环开始-->
+                            <div>
+                                <a th:href="@{'/goods/singleGoodsDetail/'+${result.goodsId}}"  >
+                                    <img src="../myRes/img/con1.jpg!q70" width="350px" />
+                                </a>
+                            </div>
+                            <span th:if="${result.goodsType} eq 1">珠宝首饰</span>
+                            <span th:if="${result.goodsType} eq 2">奢侈品</span>
+                            <span th:if="${result.goodsType} eq 3">艺术品</span>
+                            <span th:if="${result.goodsType} eq 4">手工/原创</span>
+                            <span >已售</span>
+                            <div>
+                                <a th:text="${result.goodsEndTime}">结束时间02月01日14时22分</a>
+                            </div>
+                            <div>
+                                <a th:text="${result.goodsName}">和田玉羊脂玉</a>
+                                <a th:text="${result.goodsDescription}"> 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
+                            </div>
+                            <div class="row">
+                                <div><span>售价：</span><h5 class="text-danger" th:text="${result.goodsCurrentPrice}">￥558</h5></div>
+                                <div class="bg-warning">
+                                    <h5 class="justify-content-end" >
+                                        <a th:text="${result.goodsAuctionTimes}">0</a>次拍卖</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-1">
+
+        </div>
+    </div>
+
+</body>
+
+</html>

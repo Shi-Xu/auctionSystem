@@ -7,12 +7,16 @@
     <result column="goods_goods_type" jdbcType="INTEGER" property="goodsType" />
     <result column="goods_goods_pic" jdbcType="VARCHAR" property="goodsPic" />
     <result column="goods_goods_detail_pic" jdbcType="VARCHAR" property="goodsDetailPic" />
-    <result column="goods_goods_start_time" jdbcType="DATE" property="goodsStartTime" />
-    <result column="goods_goods_end_time" jdbcType="DATE" property="goodsEndTime" />
+    <result column="goods_goods_start_time" jdbcType="CHAR" property="goodsStartTime" />
+    <result column="goods_goods_end_time" jdbcType="CHAR" property="goodsEndTime" />
     <result column="goods_goods_auction_times" jdbcType="INTEGER" property="goodsAuctionTimes" />
     <result column="goods_goods_start_price" jdbcType="DOUBLE" property="goodsStartPrice" />
     <result column="goods_goods_current_price" jdbcType="DOUBLE" property="goodsCurrentPrice" />
     <result column="goods_goods_state" jdbcType="INTEGER" property="goodsState" />
+    <result column="goods_goods_description" jdbcType="VARCHAR" property="goodsDescription" />
+    <result column="goods_goods_release_time" jdbcType="TIMESTAMP" property="goodsReleaseTime" />
+    <result column="goods_goods_audit" jdbcType="INTEGER" property="goodsAudit" />
+    <result column="goods_user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -83,7 +87,9 @@
       goods.goods_pic as goods_goods_pic, goods.goods_detail_pic as goods_goods_detail_pic, 
       goods.goods_start_time as goods_goods_start_time, goods.goods_end_time as goods_goods_end_time, 
       goods.goods_auction_times as goods_goods_auction_times, goods.goods_start_price as goods_goods_start_price, 
-      goods.goods_current_price as goods_goods_current_price, goods.goods_state as goods_goods_state
+      goods.goods_current_price as goods_goods_current_price, goods.goods_state as goods_goods_state, 
+      goods.goods_description as goods_goods_description, goods.goods_release_time as goods_goods_release_time, 
+      goods.goods_audit as goods_goods_audit, goods.user_id as goods_user_id
     </if>
   </sql>
   <select id="selectByExample" parameterType="cn.rx.dao.model.AsGoodsDOExample" resultMap="BaseResultMap">
@@ -131,11 +137,13 @@
     insert into as_goods (goods_name, goods_type, goods_pic, 
       goods_detail_pic, goods_start_time, goods_end_time, 
       goods_auction_times, goods_start_price, goods_current_price, 
-      goods_state)
+      goods_state, goods_description, goods_release_time, 
+      goods_audit, user_id)
     values (#{goodsName,jdbcType=VARCHAR}, #{goodsType,jdbcType=INTEGER}, #{goodsPic,jdbcType=VARCHAR}, 
-      #{goodsDetailPic,jdbcType=VARCHAR}, #{goodsStartTime,jdbcType=DATE}, #{goodsEndTime,jdbcType=DATE}, 
+      #{goodsDetailPic,jdbcType=VARCHAR}, #{goodsStartTime,jdbcType=CHAR}, #{goodsEndTime,jdbcType=CHAR}, 
       #{goodsAuctionTimes,jdbcType=INTEGER}, #{goodsStartPrice,jdbcType=DOUBLE}, #{goodsCurrentPrice,jdbcType=DOUBLE}, 
-      #{goodsState,jdbcType=INTEGER})
+      #{goodsState,jdbcType=INTEGER}, #{goodsDescription,jdbcType=VARCHAR}, #{goodsReleaseTime,jdbcType=TIMESTAMP}, 
+      #{goodsAudit,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.rx.dao.model.AsGoodsDO">
     <selectKey keyProperty="goodsId" order="AFTER" resultType="java.lang.Integer">
@@ -173,6 +181,18 @@
       <if test="goodsState != null">
         goods_state,
       </if>
+      <if test="goodsDescription != null">
+        goods_description,
+      </if>
+      <if test="goodsReleaseTime != null">
+        goods_release_time,
+      </if>
+      <if test="goodsAudit != null">
+        goods_audit,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="goodsName != null">
@@ -188,10 +208,10 @@
         #{goodsDetailPic,jdbcType=VARCHAR},
       </if>
       <if test="goodsStartTime != null">
-        #{goodsStartTime,jdbcType=DATE},
+        #{goodsStartTime,jdbcType=CHAR},
       </if>
       <if test="goodsEndTime != null">
-        #{goodsEndTime,jdbcType=DATE},
+        #{goodsEndTime,jdbcType=CHAR},
       </if>
       <if test="goodsAuctionTimes != null">
         #{goodsAuctionTimes,jdbcType=INTEGER},
@@ -204,6 +224,18 @@
       </if>
       <if test="goodsState != null">
         #{goodsState,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDescription != null">
+        #{goodsDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsReleaseTime != null">
+        #{goodsReleaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsAudit != null">
+        #{goodsAudit,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -232,10 +264,10 @@
         goods.goods_detail_pic = #{record.goodsDetailPic,jdbcType=VARCHAR},
       </if>
       <if test="record.goodsStartTime != null">
-        goods.goods_start_time = #{record.goodsStartTime,jdbcType=DATE},
+        goods.goods_start_time = #{record.goodsStartTime,jdbcType=CHAR},
       </if>
       <if test="record.goodsEndTime != null">
-        goods.goods_end_time = #{record.goodsEndTime,jdbcType=DATE},
+        goods.goods_end_time = #{record.goodsEndTime,jdbcType=CHAR},
       </if>
       <if test="record.goodsAuctionTimes != null">
         goods.goods_auction_times = #{record.goodsAuctionTimes,jdbcType=INTEGER},
@@ -249,6 +281,18 @@
       <if test="record.goodsState != null">
         goods.goods_state = #{record.goodsState,jdbcType=INTEGER},
       </if>
+      <if test="record.goodsDescription != null">
+        goods.goods_description = #{record.goodsDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsReleaseTime != null">
+        goods.goods_release_time = #{record.goodsReleaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.goodsAudit != null">
+        goods.goods_audit = #{record.goodsAudit,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        goods.user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -261,12 +305,16 @@
       goods.goods_type = #{record.goodsType,jdbcType=INTEGER},
       goods.goods_pic = #{record.goodsPic,jdbcType=VARCHAR},
       goods.goods_detail_pic = #{record.goodsDetailPic,jdbcType=VARCHAR},
-      goods.goods_start_time = #{record.goodsStartTime,jdbcType=DATE},
-      goods.goods_end_time = #{record.goodsEndTime,jdbcType=DATE},
+      goods.goods_start_time = #{record.goodsStartTime,jdbcType=CHAR},
+      goods.goods_end_time = #{record.goodsEndTime,jdbcType=CHAR},
       goods.goods_auction_times = #{record.goodsAuctionTimes,jdbcType=INTEGER},
       goods.goods_start_price = #{record.goodsStartPrice,jdbcType=DOUBLE},
       goods.goods_current_price = #{record.goodsCurrentPrice,jdbcType=DOUBLE},
-      goods.goods_state = #{record.goodsState,jdbcType=INTEGER}
+      goods.goods_state = #{record.goodsState,jdbcType=INTEGER},
+      goods.goods_description = #{record.goodsDescription,jdbcType=VARCHAR},
+      goods.goods_release_time = #{record.goodsReleaseTime,jdbcType=TIMESTAMP},
+      goods.goods_audit = #{record.goodsAudit,jdbcType=INTEGER},
+      goods.user_id = #{record.userId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -287,10 +335,10 @@
         goods_detail_pic = #{goodsDetailPic,jdbcType=VARCHAR},
       </if>
       <if test="goodsStartTime != null">
-        goods_start_time = #{goodsStartTime,jdbcType=DATE},
+        goods_start_time = #{goodsStartTime,jdbcType=CHAR},
       </if>
       <if test="goodsEndTime != null">
-        goods_end_time = #{goodsEndTime,jdbcType=DATE},
+        goods_end_time = #{goodsEndTime,jdbcType=CHAR},
       </if>
       <if test="goodsAuctionTimes != null">
         goods_auction_times = #{goodsAuctionTimes,jdbcType=INTEGER},
@@ -304,6 +352,18 @@
       <if test="goodsState != null">
         goods_state = #{goodsState,jdbcType=INTEGER},
       </if>
+      <if test="goodsDescription != null">
+        goods_description = #{goodsDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsReleaseTime != null">
+        goods_release_time = #{goodsReleaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsAudit != null">
+        goods_audit = #{goodsAudit,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
     </set>
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </update>
@@ -313,12 +373,16 @@
       goods_type = #{goodsType,jdbcType=INTEGER},
       goods_pic = #{goodsPic,jdbcType=VARCHAR},
       goods_detail_pic = #{goodsDetailPic,jdbcType=VARCHAR},
-      goods_start_time = #{goodsStartTime,jdbcType=DATE},
-      goods_end_time = #{goodsEndTime,jdbcType=DATE},
+      goods_start_time = #{goodsStartTime,jdbcType=CHAR},
+      goods_end_time = #{goodsEndTime,jdbcType=CHAR},
       goods_auction_times = #{goodsAuctionTimes,jdbcType=INTEGER},
       goods_start_price = #{goodsStartPrice,jdbcType=DOUBLE},
       goods_current_price = #{goodsCurrentPrice,jdbcType=DOUBLE},
-      goods_state = #{goodsState,jdbcType=INTEGER}
+      goods_state = #{goodsState,jdbcType=INTEGER},
+      goods_description = #{goodsDescription,jdbcType=VARCHAR},
+      goods_release_time = #{goodsReleaseTime,jdbcType=TIMESTAMP},
+      goods_audit = #{goodsAudit,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER}
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </update>
   <sql id="All_Column_List">
@@ -326,7 +390,9 @@
     goods.goods_pic as goods_goods_pic, goods.goods_detail_pic as goods_goods_detail_pic, 
     goods.goods_start_time as goods_goods_start_time, goods.goods_end_time as goods_goods_end_time, 
     goods.goods_auction_times as goods_goods_auction_times, goods.goods_start_price as goods_goods_start_price, 
-    goods.goods_current_price as goods_goods_current_price, goods.goods_state as goods_goods_state
+    goods.goods_current_price as goods_goods_current_price, goods.goods_state as goods_goods_state, 
+    goods.goods_description as goods_goods_description, goods.goods_release_time as goods_goods_release_time, 
+    goods.goods_audit as goods_goods_audit, goods.user_id as goods_user_id
   </sql>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

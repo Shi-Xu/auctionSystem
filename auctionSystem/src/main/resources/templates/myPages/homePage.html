@@ -1,17 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
+		<base th:href="@{/}">
+		<script type="text/javascript" th:inline="javascript">
+			var baseUrl=[[@{/}]];
+		</script>
 		<meta charset="UTF-8">
 		<title></title>
-		<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="adminlte/plugins/bootstrap/css/bootstrap.min.css" />
 
-		<script src="../plugins/jquery/jquery.min.js"></script>
+		<script src="adminlte/plugins/jquery/jquery.min.js"></script>
 
-		<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script src="adminlte/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script>
+			function load_user(){
+				/*var user=[[${currentUser}]];
+				if(user==null||user==""){
+					$("#cue").show();
+					$("#login").html('请登录');
+				}else{
+					$("#cue").hide();
+					$("#login").html(user);
+				}*/
+			}
+
+		</script>
 	</head>
 
-	<body>
+	<body onload="load_user()">
 		<!--导航栏前端-->
 
 		<!--导航栏-->
@@ -21,11 +37,17 @@
 			<li class="nav-item">
 				<a class="nav-link" href="#">欢迎来到BSpace</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">请登录</a>
+			<li class="nav-item" th:id="cue">
+				<a class="nav-link" href="/login" th:id="login">请登录
+					</a>
 			</li>
+			<div class="input-group-text" >
+				<a href="/user/detail">
+					<span class="fas fa-user">我的</span>
+				</a>
+			</div>
 			<li class="nav-item">
-				<a class="nav-link" href="#">免费注册</a>
+				<a class="nav-link" href="/register">免费注册</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#">我的订单</a>
@@ -54,40 +76,27 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">
-						<a class="nav-link" href="#">首页 <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/auction">首页 <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">珠宝</a>
+						<a class="nav-link" href="/goods/distinguishByType/1">珠宝</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">艺术品</a>
+						<a class="nav-link" href="/goods/distinguishByType/2">艺术品</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">奢侈品</a>
+						<a class="nav-link"href="/goods/distinguishByType/3">奢侈品</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">预展</a>
+						<a class="nav-link" href="/goods/distinguishByType/4">手工/原创</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">历史</a>
+						<a class="nav-link" href="/goods/history">历史</a>
 					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Dropdown
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Action</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Something else here</a>
-						</div>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-					</li>
+
 				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search" placeholder="搜索" aria-label="Search">
+				<form class="form-inline my-2 my-lg-0" action="/goods/searchAll">
+					<input class="form-control mr-sm-2" name="searchContent"  type="search" placeholder="搜索" aria-label="Search">
 					<button class="btn btn-outline-warning my-2 my-sm-0" type="submit">搜索</button>
 				</form>
 			</div>
@@ -128,7 +137,7 @@
 			<div class="col-10">
 				
 				<div>
-					<span>BSpace秒杀</span>
+					<!--<span>BSpace秒杀</span>
 					<div class="row">
 						<div class="col-4">
 							<div>
@@ -248,611 +257,143 @@
 						</div>
 					<img src="../myRes/img/cut1.webp" class="d-block w-100" alt="">
 					
-				</div>
+				</div>-->
 				<div>
-					<span>玉翠珠宝</span>
-					<div class="row">
-						<div class="col-4">
+					<span><h3>玉翠珠宝</h3></span>
+
+					<div class="row" th:with="name=${0}">
+
+						<div class="col-4"   th:each="result,iterstat:${jewelry}"
+							 th:if="${iterstat.index lt 6}">
 							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+								<!--循环开始-->
+								<div>
+									<a th:href="@{'/goods/singleGoodsDetail/'+${result.goodsId}}"  >
+										<img src="../myRes/img/con1.jpg!q70" width="350px" />
+									</a>
 								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+								<div>
+									<a th:text="${result.goodsEndTime}">结束时间02月01日14时22分</a>
 								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+								<div>
+									<a th:text="${result.goodsName}">和田玉羊脂玉</a>
+									<a th:text="${result.goodsDescription}"> 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
 								</div>
-								
+								<div class="row">
+									<div><h5 class="text-danger" th:text="${result.goodsCurrentPrice}">￥558</h5></div>
+
+									<div class="bg-warning">
+										<h5 class="justify-content-end" >
+											<a th:text="${result.goodsAuctionTimes}">0</a>次拍卖</h5>
+									</div>
+								</div>
 							</div>
+
 						</div>
 					</div>
-					<div class="row" style="padding-top: 30px;">
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
 					<img src="../myRes/img/cut2.webp" class="d-block w-100" alt="">
 				</div>
 				<div>
-					<span>水墨篆刻</span>
-					<div class="row">
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+					<span><h3>艺术品</h3></span>
+					<div class="row" >
+						<div class="col-4"   th:each="result,iterstat:${artwork}"
+							 th:if="${iterstat.index lt 6}">
+							<div >
+								<!--循环开始-->
+								<div>
+									<a th:href="@{'/goods/singleGoodsDetail/'+${result.goodsId}}"  >
+										<img src="../myRes/img/con1.jpg!q70" width="350px" />
+									</a>
 								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+								<div>
+									<a th:text="${result.goodsEndTime}">结束时间02月01日14时22分</a>
 								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+								<div>
+									<a th:text="${result.goodsName}">和田玉羊脂玉</a>
+									<a th:text="${result.goodsDescription}"> 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
 								</div>
-								
+								<div class="row">
+									<div><h5 class="text-danger" th:text="${result.goodsCurrentPrice}">￥558</h5></div>
+
+									<div class="bg-warning">
+										<h5 class="justify-content-end" >
+											<a th:text="${result.goodsAuctionTimes}">0</a>次拍卖</h5>
+									</div>
+								</div>
 							</div>
+
 						</div>
 					</div>
-					<div class="row" style="padding-top: 30px;">
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
+
 					<img src="../myRes/img/cut3.webp" class="d-block w-100" alt="">
 				</div>
 				<div>
-					<span>工艺珍玩</span>
-					<div class="row">
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+					<span><h3>奢侈品</h3></span>
+					<div class="row" >
+						<div class="col-4"   th:each="result,iterstat:${luxury}"
+							 th:if="${iterstat.index lt 6}">
+							<div >
+								<!--循环开始-->
+								<div>
+									<a th:href="@{'/goods/singleGoodsDetail/'+${result.goodsId}}"  >
+										<img src="../myRes/img/con1.jpg!q70" width="350px" />
+									</a>
 								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+								<div>
+									<a th:text="${result.goodsEndTime}">结束时间02月01日14时22分</a>
 								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+								<div>
+									<a th:text="${result.goodsName}">和田玉羊脂玉</a>
+									<a th:text="${result.goodsDescription}"> 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
 								</div>
-								
+								<div class="row">
+									<div><h5 class="text-danger" th:text="${result.goodsCurrentPrice}">￥558</h5></div>
+
+									<div class="bg-warning">
+										<h5 class="justify-content-end" >
+											<a th:text="${result.goodsAuctionTimes}">0</a>次拍卖</h5>
+									</div>
+								</div>
 							</div>
+
 						</div>
 					</div>
-					<div class="row" style="padding-top: 30px;">
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
+
 					<img src="../myRes/img/cut4.webp" class="d-block w-100" alt="">
 				</div>
 				<div>
-					<span>奢侈品</span>
-					<div class="row">
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+					<span><h3>手工/原创</h3></span>
+					<div class="row" >
+						<div class="col-4"   th:each="result,iterstat:${handicrafts}"
+							 th:if="${iterstat.index lt 6}">
+							<div >
+								<!--循环开始-->
+								<div>
+									<a th:href="@{'/goods/singleGoodsDetail/'+${result.goodsId}}"  >
+										<img src="../myRes/img/con1.jpg!q70" width="350px" />
+									</a>
 								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+								<div>
+									<a th:text="${result.goodsEndTime}">结束时间02月01日14时22分</a>
 								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
+								<div>
+									<a th:text="${result.goodsName}">和田玉羊脂玉</a>
+									<a th:text="${result.goodsDescription}"> 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
 								</div>
-								
+								<div class="row">
+									<div><h5 class="text-danger" th:text="${result.goodsCurrentPrice}">￥558</h5></div>
+
+									<div class="bg-warning">
+										<h5 class="justify-content-end" >
+											<a th:text="${result.goodsAuctionTimes}">0</a>次拍卖</h5>
+									</div>
+								</div>
 							</div>
+
 						</div>
 					</div>
-					<div class="row" style="padding-top: 30px;">
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
+
 					<img src="../myRes/img/cut5.webp" class="d-block w-100" alt="">
-				</div>
-				<div>
-					<span>手艺/原创</span>
-					<div class="row">
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-					</div>
-					<div class="row" style="padding-top: 30px;">
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-4">
-							<div>
-								<img src="../myRes/img/con1.jpg!q70" width="350px" />
-							</div>
-							<div>
-								<a>结束时间02月01日14时22分</a>
-							</div>
-							<div>
-								<a>和田玉羊脂玉 108颗 圆珠 富贵手链 56.00克 新疆润玉福祥</a>
-							</div>
-							<div class="row">
-								<div><h5 class="text-danger">￥558</h5></div>
-								
-								<div class="bg-warning">
-									<h5 class="justify-content-end"><a>0</a>次拍卖</h5>
-								</div>
-								
-							</div>
-						</div>
-					<img src="../myRes/img/cut6.webp" class="d-block w-100" alt="">
 				</div>
 			</div>
 			<div class="col-1">

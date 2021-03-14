@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.rx.dao.myMapper.UserAndGoodsDOMapper">
+  <resultMap id="BaseResultMap" type="cn.rx.dao.model.AsUserDO">
+    <id column="user_user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_pic" jdbcType="INTEGER" property="pic" />
+    <result column="user_user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_accounts" jdbcType="VARCHAR" property="accounts" />
+    <result column="user_gender" jdbcType="CHAR" property="gender" />
+    <result column="user_birthday" jdbcType="DATE" property="birthday" />
+    <result column="user_phone_num" jdbcType="VARCHAR" property="phoneNum" />
+    <result column="user_pwd" jdbcType="CHAR" property="pwd" />
+    <result column="user_address" jdbcType="VARCHAR" property="address" />
+    <result column="user_char_sign" jdbcType="VARCHAR" property="charSign" />
+    <result column="user_email" jdbcType="VARCHAR" property="email" />
+    <result column="goods_goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <association property="asGoodsDO" javaType="cn.rx.dao.model.AsGoodsDO">
+      <id column="goods_goods_id" jdbcType="INTEGER" property="goodsId" />
+      <result column="goods_goods_type" jdbcType="INTEGER" property="goodsType" />
+      <result column="goods_goods_pic" jdbcType="VARCHAR" property="goodsPic" />
+      <result column="goods_goods_detail_pic" jdbcType="VARCHAR" property="goodsDetailPic" />
+      <result column="goods_goods_start_time" jdbcType="CHAR" property="goodsStartTime" />
+      <result column="goods_goods_end_time" jdbcType="CHAR" property="goodsEndTime" />
+      <result column="goods_goods_auction_times" jdbcType="INTEGER" property="goodsAuctionTimes" />
+      <result column="goods_goods_start_price" jdbcType="DOUBLE" property="goodsStartPrice" />
+      <result column="goods_goods_current_price" jdbcType="DOUBLE" property="goodsCurrentPrice" />
+      <result column="goods_goods_state" jdbcType="INTEGER" property="goodsState" />
+      <result column="goods_goods_description" jdbcType="VARCHAR" property="goodsDescription" />
+      <result column="goods_goods_release_time" jdbcType="TIMESTAMP" property="goodsReleaseTime" />
+      <result column="goods_goods_audit" jdbcType="INTEGER" property="goodsAudit" />
+      <result column="goods_user_id" jdbcType="INTEGER" property="userId" />
+      <result column="goods_goods_id" jdbcType="INTEGER" property="goodsId" />
+    </association>
+
+  </resultMap>
+  <select id="combineSelectByUserId" parameterType="int" resultMap="BaseResultMap">
+    select *
+    from as_user user
+    left join as_goods goods on goods.user_id = user.user_id
+    where user.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+</mapper>

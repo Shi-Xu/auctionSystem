@@ -65,6 +65,8 @@
         <javaClientGenerator targetPackage="cn.rx.dao.mapper" targetProject="C:/Users/steve/Desktop/auctionSystem/auctionSystem/src/main/java" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
+                        <table tableName="as_bidding_record" domainObjectName="AsBiddingRecordDO" >
+                                    </table>
                         <table tableName="as_goods" domainObjectName="AsGoodsDO" alias="goods">
                     <generatedKey column="goods_id" sqlStatement="MySql" identity="true"/>                </table>
                         <table tableName="as_user" domainObjectName="AsUserDO" alias="user">

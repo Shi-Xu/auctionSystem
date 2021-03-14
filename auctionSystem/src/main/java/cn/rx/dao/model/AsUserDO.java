@@ -1,7 +1,6 @@
 package cn.rx.dao.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class AsUserDO implements Serializable {
     /**
@@ -50,7 +49,7 @@ public class AsUserDO implements Serializable {
      *
      * @mbg.generated
      */
-    private Date birthday;
+    private String birthday;
 
     /**
      * 字段：phone_num
@@ -83,6 +82,23 @@ public class AsUserDO implements Serializable {
      * @mbg.generated
      */
     private String charSign;
+
+    /**
+     * 字段：email
+     * 邮箱
+
+     *
+     * @mbg.generated
+     */
+    private String email;
+
+    /**
+     * 字段：role
+     * 角色 0 管理员 1 用户
+     *
+     * @mbg.generated
+     */
+    private Integer role;
 
     private static final long serialVersionUID = 1L;
 
@@ -151,16 +167,16 @@ public class AsUserDO implements Serializable {
         this.gender = gender;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public AsUserDO withBirthday(Date birthday) {
+    public AsUserDO withBirthday(String birthday) {
         this.setBirthday(birthday);
         return this;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -216,6 +232,32 @@ public class AsUserDO implements Serializable {
         this.charSign = charSign;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public AsUserDO withEmail(String email) {
+        this.setEmail(email);
+        return this;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public AsUserDO withRole(Integer role) {
+        this.setRole(role);
+        return this;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -232,6 +274,8 @@ public class AsUserDO implements Serializable {
         sb.append(", pwd=").append(pwd);
         sb.append(", address=").append(address);
         sb.append(", charSign=").append(charSign);
+        sb.append(", email=").append(email);
+        sb.append(", role=").append(role);
         sb.append("]");
         return sb.toString();
     }
@@ -257,7 +301,9 @@ public class AsUserDO implements Serializable {
             && (this.getPhoneNum() == null ? other.getPhoneNum() == null : this.getPhoneNum().equals(other.getPhoneNum()))
             && (this.getPwd() == null ? other.getPwd() == null : this.getPwd().equals(other.getPwd()))
             && (this.getAddress() == null ? other.getAddress() == null : this.getAddress().equals(other.getAddress()))
-            && (this.getCharSign() == null ? other.getCharSign() == null : this.getCharSign().equals(other.getCharSign()));
+            && (this.getCharSign() == null ? other.getCharSign() == null : this.getCharSign().equals(other.getCharSign()))
+            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
+            && (this.getRole() == null ? other.getRole() == null : this.getRole().equals(other.getRole()));
     }
 
     @Override
@@ -274,6 +320,8 @@ public class AsUserDO implements Serializable {
         result = prime * result + ((getPwd() == null) ? 0 : getPwd().hashCode());
         result = prime * result + ((getAddress() == null) ? 0 : getAddress().hashCode());
         result = prime * result + ((getCharSign() == null) ? 0 : getCharSign().hashCode());
+        result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
+        result = prime * result + ((getRole() == null) ? 0 : getRole().hashCode());
         return result;
     }
 }
