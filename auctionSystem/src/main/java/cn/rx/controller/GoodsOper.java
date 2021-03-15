@@ -54,6 +54,7 @@ public class GoodsOper {
             String currentUser = (String) attr.getAttribute("currentUser");
             int userId = (int) attr.getAttribute("userId");
             session.setAttribute("currentUser", currentUser);
+            modelMap.addAttribute("currentUser",currentUser);
             session.setAttribute("userId", userId);
         }
 
