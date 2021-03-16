@@ -1,6 +1,11 @@
 server:
   port: 8081
 spring:
+  mail:
+    default-encoding: utf-8
+    host: smtp.163.com
+    username: Ranshixu@163.com
+    password: JZQDIGQFAVMDVMXM
   datasource:
     url: jdbc:mysql://localhost:3306/auctionsystem?useSSL=false&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull
     username: root

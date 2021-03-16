@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.*;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +17,17 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 控制器基类
+ * @author ranxu
  */
+@ControllerAdvice
 public abstract class BaseController {
 	public static final String LIMITDEFAULT="25";
 	private final static Logger LOGGER = LoggerFactory.getLogger(BaseController.class);
-
+	@ExceptionHandler(value =NullPointerException.class)
+	public String exceptionHandler(NullPointerException e){
+		System.out.println("发生了一个异常"+e);
+		return e.getMessage();
+	}
 	/**
 	 * 统一异常处理
 	 * 
@@ -36,6 +43,7 @@ public abstract class BaseController {
 				&& "XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"))) {
 			request.setAttribute("requestHeader", "ajax");
 		}
+
 		// shiro没有权限异常
 		if (exception instanceof UnauthorizedException) {
 			return "/pages-403.html";
@@ -51,7 +59,7 @@ public abstract class BaseController {
 			return "/pages-404.html";
 		}
 		if (exception instanceof NullPointerException) {
-			return "/pages-404.html";
+			return "/pages/examples/404";
 		}
 		if (exception instanceof ClassCastException) {
 			return "/pages-404.html";

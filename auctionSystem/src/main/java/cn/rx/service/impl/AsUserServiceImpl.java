@@ -44,11 +44,13 @@ public class AsUserServiceImpl extends BaseServiceImpl<AsUserDOMapper, AsUserDO,
         example.createCriteria().andUserNameEqualTo(username);
         AsUserDO asUserDO = selectFirstByExample(example);
 
-        if (asUserDO.getUserName()==null){
-            new Result(ResultConstant.FAILED,null,"高用户不存在，请重试");
+        if (asUserDO==null){
+           result = new Result(ResultConstant.FAILED,null,"用户名或密码错误，请重试");
+            return result;
         }
         if (!asUserDO.getPwd().equals(password)){
-            new Result(ResultConstant.FAILED,null,"用户名或密码错误，请重试");
+            result =new Result(ResultConstant.FAILED,null,"用户名或密码错误，请重试");
+            return result;
         }
         Integer userId = asUserDO.getUserId();
         Integer role = asUserDO.getRole();
@@ -180,6 +182,20 @@ public class AsUserServiceImpl extends BaseServiceImpl<AsUserDOMapper, AsUserDO,
         example.createCriteria().andRoleEqualTo(0);
         List<AsUserDO> asUserDOS = selectByExample(example);
         result = new Result(ResultConstant.SUCCESS,asUserDOS);
+        return result;
+    }
+
+    @Override
+    public Result isNameRepeat(String userName) {
+        Result result =  null;
+        AsUserDOExample example = new AsUserDOExample();
+        example.createCriteria().andUserNameEqualTo(userName);
+        AsUserDO asUserDO = selectFirstByExample(example);
+        if (!StringUtils.isEmpty(asUserDO.getUserName())){
+            result = new Result(ResultConstant.FAILED,null,"用户名已存在");
+            return result;
+        }
+        result = new Result(ResultConstant.SUCCESS,null);
         return result;
     }
 

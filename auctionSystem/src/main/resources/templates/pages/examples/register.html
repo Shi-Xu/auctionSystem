@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
+  <base th:href="@{/}">
+  <script type="text/javascript" th:inline="javascript">
+		var baseUrl=[[@{/}]];
+		var result=[[${result}]];
+		if(result && result.code!=1){
+			alert(result.message);
+		}
+
+
+		</script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Registration Page</title>
+  <title>BSpace | 注册</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="adminlte/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -17,18 +27,35 @@
   <link rel="stylesheet" href="adminlte/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="adminlte/plugins/daterangepicker/daterangepicker.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="adminlte/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="adminlte/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="adminlte/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+
+
+
 </head>
+
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="adminlte/index2.html"><b>Admin</b>LTE</a>
+    <a href="/auction"><b>BSpace</b></a>
   </div>
 
   <div class="card">
     <div class="card-body register-card-body">
       <p class="login-box-msg">注册一个新用户</p>
 
-      <form action="/user/register" method="post">
+      <form action="/user/register" method="post" id="quickForm">
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="用户名" name="username">
           <div class="input-group-append">
@@ -38,14 +65,6 @@
           </div>
         </div>
         <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="姓名" name="realname">
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <span class="fas fa-user"></span>
-          </div>
-        </div>
-      </div>
-        <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="性别" name="gender">
           <div class="input-group-append">
             <div class="input-group-text">
@@ -53,6 +72,7 @@
             </div>
           </div>
         </div>
+
         <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="电话" name="telephone">
         <div class="input-group-append">
@@ -60,15 +80,34 @@
             <span class="fas fa-user"></span>
           </div>
         </div>
+
+
       </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="邮箱" name="email">
+          <input type="email" id="address" class="form-control" placeholder="邮箱" name="email">
           <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+            <span class="input-group-append">
+                    <button type="button" id="verifyMailCode" class="btn btn-info btn-flat" >验证邮箱</button>
+          </span>
+          </div>
+        </div>
+        <div class="input-group mb-3" hidden id="inputCode">
+          <input type="text" class="form-control" name="validate" placeholder="请输入邮箱验证码">
+
+          <div class="input-group-text">
+            <span class="fas fa-envelope"></span>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <div class="input-group date" id="reservationdate" data-target-input="nearest">
+            <input type="text" name="birthday" placeholder="生日" class="form-control  datetimepicker-input" data-target="#reservationdate">
+            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
           </div>
         </div>
+
         <div class="input-group mb-3">
           <input type="password" class="form-control" placeholder="密码" name="password">
           <div class="input-group-append">
@@ -90,13 +129,13 @@
             <div class="icheck-primary">
               <input type="checkbox" id="agreeTerms" name="terms" value="agree">
               <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
+               我同意 <a href="#">条款</a>
               </label>
             </div>
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            <button type="submit" class="btn btn-primary btn-block">注册</button>
           </div>
           <!-- /.col -->
         </div>
@@ -106,15 +145,15 @@
         <p>- OR -</p>
         <a href="#" class="btn btn-block btn-primary">
           <i class="fab fa-facebook mr-2"></i>
-          Sign up using Facebook
+          qq注册
         </a>
         <a href="#" class="btn btn-block btn-danger">
           <i class="fab fa-google-plus mr-2"></i>
-          Sign up using Google+
+          微博注册
         </a>
       </div>
 
-      <a href="login.html" class="text-center">I already have a membership</a>
+      <a href="/login" class="text-center">我已经有账号了</a>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->
@@ -127,5 +166,104 @@
 <script src="adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="adminlte/dist/js/adminlte.min.js"></script>
+<!-- Select2 -->
+<script src="adminlte/plugins/select2/js/select2.full.min.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="adminlte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- InputMask -->
+<script src="adminlte/plugins/moment/moment.min.js"></script>
+<script src="adminlte/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<!-- date-range-picker -->
+<script src="adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="adminlte/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Bootstrap Switch -->
+<script src="adminlte/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- jquery-validation -->
+<script src="adminlte/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="adminlte/plugins/jquery-validation/additional-methods.min.js"></script>
+<!-- AdminLTE App -->
+<script src="adminlte/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="adminlte/dist/js/demo.js"></script>
+<script src="myRes/js/register.js" th:inline="javascript">
+
+</script>
+<!-- Page script -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservationdate').datetimepicker({
+      format: 'L'
+    });
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'MM/DD/YYYY hh:mm A'
+      }
+    })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+            {
+              ranges   : {
+                'Today'       : [moment(), moment()],
+                'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+                'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+              },
+              startDate: moment().subtract(29, 'days'),
+              endDate  : moment()
+            },
+            function (start, end) {
+              $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
+    )
+
+    //Timepicker
+    $('#timepicker').datetimepicker({
+      format: 'LT'
+    })
+
+    //Bootstrap Duallistbox
+    $('.duallistbox').bootstrapDualListbox()
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    });
+
+    $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+
+  })
+</script>
 </body>
 </html>
