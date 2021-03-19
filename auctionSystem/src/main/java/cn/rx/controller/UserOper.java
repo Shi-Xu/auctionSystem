@@ -91,13 +91,15 @@ public class UserOper {
                 session.setAttribute("userId", userId);
                 session.setAttribute("currentUser",username);
                 attrs.addAttribute("currentUser", username);
-                attrs.addAttribute("userId", userId);
-
                 model.addAttribute("currentUser", username);
+                model.addAttribute("userId", userId);
                 return "redirect:/goods/showAllGoods";
             }else if (role==0){
                 session.setAttribute("userId", userId);
                 session.setAttribute("currentUser",username);
+                attrs.addAttribute("currentUser", username);
+                model.addAttribute("currentUser", username);
+                model.addAttribute("userId", userId);
                 return "redirect:/manager/showAllUser";
             }
 

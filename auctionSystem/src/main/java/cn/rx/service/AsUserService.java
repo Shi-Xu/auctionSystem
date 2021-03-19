@@ -36,4 +36,6 @@ public interface AsUserService extends BaseService<AsUserDO, AsUserDOExample> {
     Result showAllManager();
 
     Result isNameRepeat(String userName);
+
+    int getUserID(String currentUser);
 }

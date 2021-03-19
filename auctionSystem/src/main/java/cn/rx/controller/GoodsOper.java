@@ -11,6 +11,7 @@ import cn.rx.dao.myMapper.UserAndGoodsDOMapper;
 import cn.rx.dao.myModel.UserAndGoodsDO;
 import cn.rx.service.AsBiddingRecordService;
 import cn.rx.service.AsGoodsService;
+import cn.rx.service.AsUserService;
 import cn.rx.service.UserAndGoodsService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.jar.Attributes;
 
 @Controller
 @Slf4j
@@ -40,6 +42,8 @@ public class GoodsOper {
     UserAndGoodsService userAndGoodsService;
     @Autowired
     AsBiddingRecordService asBiddingRecordService;
+    @Autowired
+    AsUserService asUserService;
 
 
     @Autowired
@@ -47,19 +51,18 @@ public class GoodsOper {
     @Autowired
     HttpServletRequest request;
     @GetMapping("showAllGoods")
-    public String showAllGoods(ModelMap modelMap, RedirectAttributes attr){
-        Result result = asGoodsService.showAllGoods(modelMap);
-        //判断该字段是否有值，有则添加，没有就进行登录操作。
-        if (attr.containsAttribute("currentUser")&&attr.containsAttribute("userId")){
-            String currentUser = (String) attr.getAttribute("currentUser");
-            int userId = (int) attr.getAttribute("userId");
-            session.setAttribute("currentUser", currentUser);
+    public String showAllGoods(ModelMap modelMap, RedirectAttributes attributes){
+        String currentUser = (String) modelMap.getAttribute("currentUser");
+        if (!StringUtils.isEmpty(currentUser)){
+            session.setAttribute("currentUser",currentUser);
+            int userId = asUserService.getUserID(currentUser);
+            session.setAttribute("userId",userId);
             modelMap.addAttribute("currentUser",currentUser);
-            session.setAttribute("userId", userId);
+            modelMap.addAttribute("userId",userId);
         }
+        Result result = asGoodsService.showAllGoods(modelMap);
 
         modelMap.addAttribute("showAllGoodsMap", result);
-
         return "/myPages/homePage";
     }
     @GetMapping("singleGoodsDetail/{goodsId}")

@@ -199,4 +199,14 @@ public class AsUserServiceImpl extends BaseServiceImpl<AsUserDOMapper, AsUserDO,
         return result;
     }
 
+    @Override
+    public int getUserID(String currentUser) {
+        int userId = 0;
+        AsUserDOExample example = new AsUserDOExample();
+        example.createCriteria().andUserNameEqualTo(currentUser);
+        AsUserDO asUserDO = selectFirstByExample(example);
+        userId=asUserDO.getUserId();
+        return userId;
+    }
+
 }

@@ -4,6 +4,8 @@
 		<base th:href="@{/}">
 		<script type="text/javascript" th:inline="javascript">
 			var baseUrl=[[@{/}]];
+			var currentUser=[[${currentUser}]];
+
 		</script>
 		<meta charset="UTF-8">
 		<title></title>
@@ -13,53 +15,36 @@
 
 		<script src="adminlte/plugins/bootstrap/js/bootstrap.min.js"></script>
 		<script>
-			function load_user(){
-				/*var user=[[${currentUser}]];
-				if(user==null||user==""){
-					$("#cue").show();
-					$("#login").html('请登录');
-				}else{
-					$("#cue").hide();
-					$("#login").html(user);
-				}*/
-			}
+
 
 		</script>
 	</head>
 
-	<body onload="load_user()">
+	<body >
 		<!--导航栏前端-->
-
 		<!--导航栏-->
 		<!--图表页-->
 		<!--导航栏终端-->
-		<ul class="nav justify-content-center navbar navbar-dark bg-dark">
+		<ul class="nav  navbar navbar-dark bg-dark">
 			<li class="nav-item">
-				<a class="nav-link" href="#">欢迎来到BSpace</a>
-			</li>
-
-			<li class="nav-item" th:if="${currentUser}">
-				<a class="nav-link" href="/login" th:text="${currentUser}">已登录
-				</a>
+				<a class="nav-link" th:if="${currentUser==null}" href="/auction"><h4>欢迎来到BSpace</h4></a>
+				<a class="nav-link" th:if="${currentUser}" href="/auction"><h5 th:text="'欢迎您，'+${currentUser}"></h5></a>
 			</li>
 			<li class="nav-item" th:if="${currentUser == null}">
 				<a class="nav-link" href="/login" th:id="login">请登录
 					</a>
 			</li>
-
-			<div class="input-group-text" >
+			<li class="nav-item" th:if="${currentUser != null}">
 				<a href="/user/detail">
 					<span class="fas fa-user">我的</span>
 				</a>
-			</div>
-			<li class="nav-item">
+			</li>
+			<li class="nav-item" th:if="${currentUser ==null}">
 				<a class="nav-link" href="/register">免费注册</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">我的订单</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">客户服务</a>
+				<div  th:if="${currentUser==null}"><a  class="nav-link" href="/login">我的竞标</a></div>
+				<div  th:if="${currentUser}"><a class="nav-link" th:href="@{'goods/showBiddenGoods/'+${userId}}">我的竞标</a></div>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#">我的收藏</a>
@@ -68,7 +53,10 @@
 				<a class="nav-link" href="#">购物车</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">待付款</a>
+				<a class="nav-link" href="#">客户服务</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" th:if="${currentUser}" href="#">待付款</a>
 			</li>
 		</ul>
 
